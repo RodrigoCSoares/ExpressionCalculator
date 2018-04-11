@@ -9,14 +9,14 @@ public class Pilha <X> implements Cloneable{
     private int ultimo = -1;
 
     //CONSTRUTORES
-    Pilha(int tam) throws NegativeArraySizeException{
+    public Pilha(int tam) throws Exception{
         if(tam<1)
-            throw new NegativeArraySizeException("Tamanho invalido!");
+            throw new Exception("Tamanho invalido!");
 
         pilha = new Object[tam];
     }
 
-    public Pilha (Pilha<X> modelo)throws Exception{
+    public Pilha(Pilha<X> modelo)throws Exception{
         if(modelo==null)
             throw new Exception("Modelo inválido");
 
@@ -29,7 +29,7 @@ public class Pilha <X> implements Cloneable{
 
 
     //METODOS ESPECIFICOS DESSA CLASSE
-    public void guarda(X x) throws Exception {
+    public void guarde(X x) throws Exception {
         if(x=="" || x==null)
             throw new Exception("Valor invalido!");
 
@@ -53,7 +53,6 @@ public class Pilha <X> implements Cloneable{
         ultimo--;
     }
 
-    @SuppressWarnings("unchecked")
     public X getItem()throws Exception {
         if(ultimo==-1)
             throw new Exception("Vazio!");
@@ -74,7 +73,6 @@ public class Pilha <X> implements Cloneable{
 
 
     //METODOS OBRIGATORIOS
-    @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
         if (this==obj)
             return true;

@@ -3,32 +3,16 @@ package com.rodrigosoares;// Throwable
 
 import java.lang.reflect.Method;
 
-public class Fila <X> implements Cloneable
-{
+import static java.lang.Float.valueOf;
+
+public class Fila <X> implements Cloneable {
     private Object[] item;
     private int      inicio =  0;
     private int      fim    = -1;
     private int      qtd    =  0;
 
-    private X meuCloneDeX (Object modelo)
-    {
-        //return (X)modelo.clone();
-        X ret=null;
-        try
-        {
-            Class<?> classe = modelo.getClass();
-            Class<?>[] tipoDoParametroFormal = null; // null pq nao tem parametros
-            Method metodo = classe.getMethod ("clone", tipoDoParametroFormal);
-            Object[] parametroReal = null; // null pq nao tem parametros
-            ret = (X)metodo.invoke (modelo, parametroReal);
-        }
-        catch (Exception erro)
-        {}
-        return ret;
-    }
-
-    public Fila (int capacidade) throws Exception
-    {
+    //CONSTRUTORES
+    public Fila (int capacidade) throws Exception{
         if (capacidade<=0)
         {
             Exception erro;
@@ -39,8 +23,22 @@ public class Fila <X> implements Cloneable
         this.item = new Object [capacidade];
     }
 
-    public void guarde (X x) throws Exception
-    {
+    public Fila (Fila<X> modelo) throws Exception{
+        if (modelo==null)
+            throw new Exception ("Modelo ausente");
+
+        this.qtd    = modelo.qtd;
+        this.inicio = modelo.inicio;
+        this.fim    = modelo.fim;
+        this.item   = new Object [modelo.item.length];
+
+        for (int i=0; i<modelo.item.length; i++)
+            this.item[i] = modelo.item[i];
+    }
+
+
+    //METODOS ESPECIFICOS DESSA CLASSE
+    public void guarde (X x) throws Exception{
         if (x==null)
             throw new Exception ("Informacao ausente");
 
@@ -59,8 +57,7 @@ public class Fila <X> implements Cloneable
         this.qtd++;
     }
 
-    public X getUmItem () throws Exception
-    {
+    public X getItem() throws Exception{
         if (this.qtd==0)
             throw new Exception ("Vazio");
 
@@ -70,8 +67,7 @@ public class Fila <X> implements Cloneable
             return (X)this.item[this.inicio];
     }
 
-    public void jogueForaUmItem () throws Exception
-    {
+    public void retira() throws Exception{
         if (this.qtd==0)
             throw new Exception ("Vazio");
 
@@ -99,8 +95,9 @@ public class Fila <X> implements Cloneable
         return this.qtd;
     }
 
-    public boolean equals (Object obj)
-    {
+
+    //METODOS OBRIGATORIOS
+    public boolean equals (Object obj){
         if (this==obj)
             return true;
 
@@ -140,36 +137,34 @@ public class Fila <X> implements Cloneable
         return true;
     }
 
-    public String toString ()
-    {
-        String ret="";
+    public String toString (){
+        String ret="[ ";
 
         int atual = this.inicio,
                 qtd   = this.qtd;
 
-        while (qtd>0)
-        {
+        while (qtd>0){
             ret += this.item[atual];
             qtd--;
 
-            if (qtd>0)
-                ret += "|";
+            if (qtd>0 && qtd<this.item.length)
+                ret += ", ";
 
             atual++;
             if (atual==this.item.length)
                 atual=0;
         }
 
+        ret += " ]";
         return ret;
     }
 
-    public int hashCode ()
-    {
+    public int hashCode (){
         int ret = 666; // so nao pode ser zero
 
-        ret = 7*ret + new Integer(this.inicio).hashCode();
-        ret = 7*ret + new Integer(this.fim   ).hashCode();
-        ret = 7*ret + new Integer(this.qtd   ).hashCode();
+        ret = 7*ret + valueOf(this.inicio).hashCode();
+        ret = 7*ret + valueOf(this.fim   ).hashCode();
+        ret = 7*ret + valueOf(this.qtd   ).hashCode();
 
         int atual = this.inicio,
                 qtd   = this.qtd;
@@ -190,22 +185,25 @@ public class Fila <X> implements Cloneable
         return ret;
     }
 
-    public Fila (Fila<X> modelo) throws Exception
-    {
-        if (modelo==null)
-            throw new Exception ("Modelo ausente");
 
-        this.qtd    = modelo.qtd;
-        this.inicio = modelo.inicio;
-        this.fim    = modelo.fim;
-        this.item   = new Object [modelo.item.length];
-
-        for (int i=0; i<modelo.item.length; i++)
-            this.item[i] = modelo.item[i];
+    //METODOS FACULTATIVOS
+    private X meuCloneDeX (Object modelo){
+        //return (X)modelo.clone();
+        X ret=null;
+        try
+        {
+            Class<?> classe = modelo.getClass();
+            Class<?>[] tipoDoParametroFormal = null; // null pq nao tem parametros
+            Method metodo = classe.getMethod ("clone", tipoDoParametroFormal);
+            Object[] parametroReal = null; // null pq nao tem parametros
+            ret = (X)metodo.invoke (modelo, parametroReal);
+        }
+        catch (Exception erro)
+        {}
+        return ret;
     }
 
-    public Object clone ()
-    {
+    public Object clone (){
         Fila<X> ret=null;
 
         try
@@ -218,9 +216,3 @@ public class Fila <X> implements Cloneable
         return ret;
     }
 }
-
-
-
-
-
-
