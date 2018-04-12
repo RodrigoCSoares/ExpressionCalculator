@@ -46,7 +46,7 @@ public class Pilha <X> implements Cloneable{
     }
 
     public void retira() throws Exception{
-        if((ultimo-1)<0)
+        if((ultimo)<0)
             throw new Exception("Fila vazia!");
 
         pilha[ultimo] = null;
@@ -64,7 +64,11 @@ public class Pilha <X> implements Cloneable{
     }
 
     public boolean vazia() {
-        return ultimo==-1;
+        if (ultimo<0)
+            return true;
+        else
+            return false;
+
     }
 
     public int getQuantosElementos() {

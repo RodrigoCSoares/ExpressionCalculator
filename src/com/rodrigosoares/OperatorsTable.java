@@ -9,34 +9,34 @@ public class OperatorsTable {
     }
 
     //CLASS METHODS
-    private void fill(){
+    private void fill(){ //Fills the table
         for (int y=0; y<7; y++)
             for (int x=0; x<7; x++){
                 if(y==0 || y==1){
-                    table[x][y] = false;
+                    this.table[x][y] = false;
                 }
                 else if (y==2 || y==3){
                     if(x>0 && x<4)
-                        table[x][y]=true;
+                        this.table[x][y]=true;
                     else
-                        table[x][y]=false;
+                        this.table[x][y]=false;
                 }
                 else if(y==4 || y==5) {
                     if (x == 0 || x == 6)
-                        table[x][y] = false;
+                        this.table[x][y] = false;
                     else
-                        table[x][y] = true;
+                        this.table[x][y] = true;
                 }
                 else {
                     if (x == 6)
-                        table[x][y] = false;
+                        this.table[x][y] = false;
                     else
-                        table[x][y] = true;
+                        this.table[x][y] = true;
                 }
             }
     }
 
-    public boolean check(Character op1, Character op2) throws Exception{
+    public boolean check(Character op2, Character op1) throws Exception{ //Checks the value of two operators
         int nX=-1, nY=-1;
 
         switch (op1){
@@ -75,7 +75,7 @@ public class OperatorsTable {
         if(nX==-1 || nY==-1)
             throw new Exception("Operação inválida!");
 
-        return (table[nX][nY]);
+        return this.table[nX][nY];
     }
 
     //REQUIRED METHODS
