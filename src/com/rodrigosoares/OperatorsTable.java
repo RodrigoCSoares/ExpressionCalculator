@@ -1,42 +1,39 @@
 package com.rodrigosoares;
 
-public class OperatorsTable {
-    private boolean[][] table = new boolean[7][7];
 
-    //CONSTRUCTOR
-    public OperatorsTable(){
-        this.fill();
-    }
+public class OperatorsTable {
+    private static boolean[][] table = new boolean[7][7];
+
 
     //CLASS METHODS
-    private void fill(){ //Fills the table
+    static { //Fills the table
         for (int y=0; y<7; y++)
             for (int x=0; x<7; x++){
                 if(y==0 || y==1){
-                    this.table[x][y] = false;
+                    table[x][y] = false;
                 }
                 else if (y==2 || y==3){
                     if(x>0 && x<4)
-                        this.table[x][y]=true;
+                        table[x][y]=true;
                     else
-                        this.table[x][y]=false;
+                        table[x][y]=false;
                 }
                 else if(y==4 || y==5) {
                     if (x == 0 || x == 6)
-                        this.table[x][y] = false;
+                        table[x][y] = false;
                     else
-                        this.table[x][y] = true;
+                        table[x][y] = true;
                 }
                 else {
                     if (x == 6)
-                        this.table[x][y] = false;
+                        table[x][y] = false;
                     else
-                        this.table[x][y] = true;
+                        table[x][y] = true;
                 }
             }
     }
 
-    public boolean check(Character op2, Character op1) throws Exception{ //Checks the value of two operators
+    public static boolean check(Character op2, Character op1) throws Exception{ //Checks the value of two operators
         int nX=-1, nY=-1;
 
         switch (op1){
@@ -75,7 +72,7 @@ public class OperatorsTable {
         if(nX==-1 || nY==-1)
             throw new Exception("Operação inválida!");
 
-        return this.table[nX][nY];
+        return table[nX][nY];
     }
 
     //REQUIRED METHODS
