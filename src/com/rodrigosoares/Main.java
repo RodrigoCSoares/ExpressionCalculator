@@ -9,8 +9,11 @@ public class Main {
             //Getting the expression
             Scanner scanner = new Scanner(System.in);
             Expression expression = new Expression(scanner.nextLine());
+            Expression expression1 = new Expression(expression);
 
-            System.out.println(expression.getResult());
+            if(expression.equals(expression1))
+                System.out.println(expression.getResult()+"\n"+expression.hashCode());
+
 
         }catch (Exception e){
             System.out.println(e.getMessage());
