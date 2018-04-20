@@ -171,7 +171,12 @@ public class Expression implements Comparable {
         else {
             this.expression = userInput.replaceAll("\\s", "");
             this.convert();
-            this.calculate();
+
+            //check if the expression is a sigle number. Ex: 2
+            if(this.pfNotation.getQuantosElementos()==1 && isNumeric(this.pfNotation.getItem()))
+                result = Double.parseDouble(this.pfNotation.getItem());
+            else
+                this.calculate();
         }
     }
 
